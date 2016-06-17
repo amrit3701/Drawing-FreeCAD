@@ -1,6 +1,6 @@
-a = FreeCAD.ActiveDocument.Objects
+obj_list = FreeCAD.ActiveDocument.Objects
 App.activeDocument().addObject("Part::Compound","Compound")
-App.activeDocument().Compound.Links = a
+App.activeDocument().Compound.Links = obj_list
 
 App.ActiveDocument.addObject('Drawing::FeaturePage','Page')
 App.ActiveDocument.Page.Template = App.getResourceDir()+'Mod/Drawing/Templates/A3_Landscape.svg'
@@ -13,7 +13,6 @@ App.ActiveDocument.View.Y = 100.0
 App.ActiveDocument.View.ShowHiddenLines = False
 App.ActiveDocument.View.Scale = 2.0
 App.ActiveDocument.Page.addObject(App.ActiveDocument.View)
-App.ActiveDocument.recompute()
 
 App.ActiveDocument.addObject('Drawing::FeatureViewPart','ViewIso')
 App.ActiveDocument.ViewIso.Source = App.ActiveDocument.Compound
