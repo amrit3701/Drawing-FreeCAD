@@ -41,7 +41,8 @@ App.ActiveDocument.Page.Template = App.getResourceDir()+'Mod/Drawing/Templates/A
 ########################################################################
 class obj_view_specs:
     # Declaring a constructor
-    def __init__(self, name, obj, x_dir, y_dir, z_dir, x_pos, y_pos, hid_lines, scale_size, rotation):
+    def __init__(self, name, obj, x_dir, y_dir, z_dir, x_pos, y_pos, hid_lines,
+            scale_size, rotation):
         self.name = name
         self.obj = obj
         self.x_dir = x_dir
@@ -79,7 +80,8 @@ def draw_obj_view(view, page_name):
 
 
 class section_view_specs:
-    def __init__(self, obj, x_dir, y_dir, z_dir, axis_x, axis_y, axis_z, angle2axis, x_pos, y_pos, scale, rotation):
+    def __init__(self, obj, x_dir, y_dir, z_dir, axis_x, axis_y, axis_z,
+            angle2axis, x_pos, y_pos, scale, rotation):
         self.obj = obj
         self.x_dir = x_dir
         self.y_dir = y_dir
@@ -96,7 +98,9 @@ class section_view_specs:
 def draw_section_view(view, page_name):
     obj_ref = App.ActiveDocument.getObject(view.obj)
     view_ref = Arch.makeSectionPlane([obj_ref])
-    view_ref.Placement = App.Placement(App.Vector(view.x_dir, view.y_dir, view.z_dir), App.Rotation(App.Vector(view.axis_x, view.axis_y, view.axis_z), view.angle2axis))
+    view_ref.Placement = App.Placement(App.Vector(view.x_dir, view.y_dir,
+        view.z_dir), App.Rotation(App.Vector(view.axis_x, view.axis_y,
+            view.axis_z), view.angle2axis))
     Draft.makeShape2DView(view_ref)
     page_ref = App.ActiveDocument.getObject(page_name)
     draw_ref = Draft.makeDrawingView(view_ref, page_ref)
