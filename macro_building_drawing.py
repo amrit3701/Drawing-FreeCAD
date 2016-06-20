@@ -1,3 +1,5 @@
+import Arch, Draft, Drawing
+
 # Storing all objects (i.e parts of building like column, beams and slabs)
 # in obj_list
 obj_list = FreeCAD.ActiveDocument.Objects
@@ -37,7 +39,7 @@ App.ActiveDocument.Page.Template = App.getResourceDir()+'Mod/Drawing/Templates/A
 # rotation: If it is 90 then the view on the drawing sheet is rotate
 # 90 degree.
 ########################################################################
-class view_Specs:
+class obj_view_specs:
     # Declaring a constructor
     def __init__(self, name, obj, x_dir, y_dir, z_dir, x_pos, y_pos, hid_lines, scale_size, rotation):
         self.name = name
@@ -57,7 +59,7 @@ class view_Specs:
 # stores all the detail which are require to draw the drawing of the
 # object on the drawing sheet.
 ########################################################################
-def draw(view):
+def draw_obj_view(view, page_name):
     # Add the object in the active document of specific name
     App.ActiveDocument.addObject('Drawing::FeatureViewPart',view.name)
     # view_ref stores the object having name view.name
@@ -71,12 +73,47 @@ def draw(view):
     view_ref.ShowHiddenLines = view.hid_lines
     view_ref.Scale = view.scale_size
     view_ref.Rotation = view.rotation
-    App.ActiveDocument.Page.addObject(view_ref)
+    page_ref = App.ActiveDocument.getObject(page_name)
+    page_ref.addObject(view_ref)
     App.ActiveDocument.recompute()
 
 
-view = view_Specs("view", "Compound", 0, 0, 1, 30, 100, False, 2, 0)
-draw(view)
+class section_view_specs:
+    def __init__(self, obj, x_dir, y_dir, z_dir, axis_x, axis_y, axis_z, angle2axis, x_pos, y_pos, scale, rotation):
+        self.obj = obj
+        self.x_dir = x_dir
+        self.y_dir = y_dir
+        self.z_dir = z_dir
+        self.axis_x = axis_x
+        self.axis_y = axis_y
+        self.axis_z = axis_z
+        self.angle2axis = angle2axis
+        self.x_pos = x_pos
+        self.y_pos = y_pos
+        self.scale = scale
+        self.rotation = rotation
 
-viewIso = view_Specs("viewIso", "Compound", 1, 1, 1, 335, 60, True, 2, 120)
-draw(viewIso)
+def draw_section_view(view, page_name):
+    obj_ref = App.ActiveDocument.getObject(view.obj)
+    view_ref = Arch.makeSectionPlane([obj_ref])
+    view_ref.Placement = App.Placement(App.Vector(view.x_dir, view.y_dir, view.z_dir), App.Rotation(App.Vector(view.axis_x, view.axis_y, view.axis_z), view.angle2axis))
+    Draft.makeShape2DView(view_ref)
+    page_ref = App.ActiveDocument.getObject(page_name)
+    draw_ref = Draft.makeDrawingView(view_ref, page_ref)
+    draw_ref.X = view.x_pos
+    draw_ref.Y = view.y_pos
+    draw_ref.Scale = view.scale
+    draw_ref.Rotation = view.rotation
+    App.ActiveDocument.recompute()
+
+view = obj_view_specs("view", "Compound", 0, 0, 1, 30, 100, False, 2, 0)
+draw_obj_view(view, "Page")
+
+viewIso = obj_view_specs("viewIso", "Compound", 1, 1, 1, 335, 60, True, 2, 120)
+draw_obj_view(viewIso, "Page")
+
+sec_obj = section_view_specs("Compound", 10, 0, 0, 0, 0, 1, 0, 50, 200, 2, 0)
+draw_section_view(sec_obj, "Page")
+
+#sec_obj2 = section_view_specs("Compound", 10 , 10, 10, 1, 0, 1, 30, 100, 300, 2, 0)
+#draw_section_view(sec_obj2, "Page")
