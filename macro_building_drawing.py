@@ -18,6 +18,7 @@ App.ActiveDocument.addObject('Drawing::FeaturePage','Page')
 App.ActiveDocument.Page.Template = App.getResourceDir()+'Mod/Drawing/Templates/A3_Landscape.svg'
 
 ########################################################################
+#
 # This class stores all the information which is require to draw the
 # drawing of different objects on the drawing sheet.
 #
@@ -38,6 +39,7 @@ App.ActiveDocument.Page.Template = App.getResourceDir()+'Mod/Drawing/Templates/A
 #
 # rotation: If it is 90 then the view on the drawing sheet is rotate
 # 90 degree.
+#
 ########################################################################
 class obj_view_specs:
     # Declaring a constructor
@@ -55,10 +57,12 @@ class obj_view_specs:
         self.rotation = rotation
 
 ########################################################################
+#
 # The draw function projects the projections of the object on the
 # drawing sheet. It takes the object of 'view_Specs' as argument, which
 # stores all the detail which are require to draw the drawing of the
 # object on the drawing sheet.
+#
 ########################################################################
 def draw_obj_view(view, page_name):
     # Add the object in the active document of specific name
@@ -78,6 +82,28 @@ def draw_obj_view(view, page_name):
     page_ref.addObject(view_ref)
     App.ActiveDocument.recompute()
 
+########################################################################
+#
+# This class stores all information which will require to draw the
+# sectional view of the object at any angle and at any position.
+#
+# obj: It store the name of the object which can be draw on drawing sheet
+#
+# x_dir, y_dir, z_dir: It represent the position of the sectional plane
+#
+# axis_x, axis_y, axis_z: It represent the axis of the sectional plane
+#
+# angle2axis: Represent the angle of the sectional plane to the axis
+#
+# x_pos y_pos: It represents position of the drawing to be drawn on a
+# drawing sheet.
+#
+# scale_size: It represent the size to be draw on the drawing sheet.
+#
+# rotation: If it is 90 then the view on the drawing sheet is rotate
+# 90 degree.
+#
+#######################################################################
 
 class section_view_specs:
     def __init__(self, obj, x_dir, y_dir, z_dir, axis_x, axis_y, axis_z,
