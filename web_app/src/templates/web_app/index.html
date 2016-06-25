@@ -1,6 +1,6 @@
 <h1>hello world</h1>
 
-<form action="{% url 'specs' %}" method="get">
+<form action="{% url 'specs' %}" method="POST">
     {% csrf_token %} 
     <input type="text" name="length" id="length">
   <!--  <input type="number" name="width" id="width">
