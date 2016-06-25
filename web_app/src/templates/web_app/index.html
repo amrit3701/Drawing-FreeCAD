@@ -1,0 +1,9 @@
+<h1>hello world</h1>
+
+<form action="{% url 'specs' %}" method="get">
+    {% csrf_token %} 
+    <input type="text" name="length" id="length">
+  <!--  <input type="number" name="width" id="width">
+    <input type="number" name="height" id="height">-->
+    <input type="submit" value="submit" id="submit">
+</form>
