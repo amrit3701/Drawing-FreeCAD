@@ -1,9 +1,23 @@
-<h1>hello world</h1>
-
+<h1 style="text-align:center;">Enter the specification fo the box</h1>
+<center>
 <form action="{% url 'specs' %}" method="POST">
     {% csrf_token %} 
-    <input type="text" name="length" id="length">
-  <!--  <input type="number" name="width" id="width">
-    <input type="number" name="height" id="height">-->
-    <input type="submit" value="submit" id="submit">
+    <table>
+        <tr>
+            <td> Lenght </td>
+            <td> <input type="number" name="length_box" id="length"> </td>
+        </tr>
+        <tr>
+            <td> Width </td>
+            <td> <input type="number" name="width_box" id="width"> </td>
+        </tr>
+        <tr>
+            <td> Height </td>
+            <td> <input type="number" name="height_box" id="height"> </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td> <input type="submit" value="submit" id="submit"> </td>
+        </tr>
 </form>
+</center>
