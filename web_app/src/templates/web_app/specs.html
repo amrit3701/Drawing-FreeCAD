@@ -1,10 +1,13 @@
 <h1>specification</h1>
-<!--
-{% for key, value in ll.items %}
-{{ key }} : {{ value }}</br>
-{% endfor %}-->
-{{ length }}
+
+{% for key, value in lists.items %}
+    {{ key }} : {{ value }} </br>
+{% endfor %}
+
+
+<!--{{ length }}
 {{ width }}
 {{ height }}
+-->
 
 <a href="{% url 'download' %}">download</a>

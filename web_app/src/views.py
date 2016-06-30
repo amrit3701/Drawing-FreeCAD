@@ -10,30 +10,36 @@ from wsgiref.util import FileWrapper
 def index(request):
     return render(request, 'web_app/index.html')
 
-def specs(request):
-    #lists = {'length':'','width':'','height':''}
-    #ll = request.POST['length']
+lists = {'stories':'','dep_of_foun':'','plinth_lev':'','cclear_height':'',
+    'dep_slab':'','rep_span_len':'','rep_span_wid':'','col_type':'',
+        'len_col':'','wid_col':'',  'radius_col':'','dep_beam':'',
+            'wid_beam':''}
 
-    """for var in lists.keys():
-        #print var
+def specs(request):
+    global lists
+    for var in lists.keys():
         lists[var] = request.POST.get(var)
-        print request.session[var]
-        print lists"""
-    #ll = lists
-    length = request.POST.get('length_box')
-    width = request.POST.get('width_box')
-    height = request.POST.get('height_box')
+    print lists['wid_col']
+    print lists['rep_span_len']
 
     f = open('some.csv', 'w')
     ww = csv.writer(f, delimiter=' ')
-    ww.writerow([length, width, height])
+    a = []
+    for i in lists.keys():
+        print lists[i]
+        if lists[i] == None:
+            a.append(0)
+        else:
+            a.append(lists[i])
+    ww.writerow(a)
     f.close()
     os.system('rm box.fcstd')
     l = os.system('freecadcmd free_model.py')
     print l
     print request.POST
     print len(request.POST)
-    return render(request, 'web_app/specs.html', {'length': length, 'width': width, 'height': height})
+    return render(request, 'web_app/specs.html', {'lists': lists})
+
 
 
 def download(request):

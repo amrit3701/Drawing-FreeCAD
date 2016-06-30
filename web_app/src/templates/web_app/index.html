@@ -1,23 +1,107 @@
+<!--
+<head>                                                                  
+<style>
+tr.col_type_options { display: none; }                                    
+</style>                                                                
+</head> 
+-->
+
+
 <h1 style="text-align:center;">Enter the specification fo the box</h1>
 <center>
 <form action="{% url 'specs' %}" method="POST">
     {% csrf_token %} 
     <table>
         <tr>
-            <td> Lenght </td>
-            <td> <input type="number" name="length_box" id="length"> </td>
+            <td> Stories </td>
+            <td> <input type="number" name="stories" </td>
         </tr>
         <tr>
+            <td> Depth of foudation </td>
+            <td> <input type="number" name="dep_of_foun" > </td>
+        </tr>
+        <tr>
+            <td> Plinth level </td>
+            <td> <input type="number" name="plinth_lev" > </td>
+        </tr>
+        <tr>
+            <td>Clear height</td>
+            <td> <input type="number" name="cclear_height"> </td>
+        </tr>
+        <tr>
+            <td> Depth of slab </td>
+            <td> <input type="number" name="dep_slab"> </td>
+        </tr>
+        <tr> 
+            <td> Representation of spen length  </td>
+            <td> <input type="text" name="rep_span_len" ></td>
+        </tr>
+        <tr>
+            <td> Representation of span width </td>
+            <td> <input type="text" name="rep_span_wid" > </td>
+        </tr>
+
+        <tr>                                                            
+            <td> Column type </td>                     
+            <td> <input type="number" name="col_type" > </td>         
+        </tr> 
+
+
+<!--        <tr>
+            <td>Column type</td>
+            <td><select name="col_type" id="col_type">
+                    <option value="0"> Cylinder </option>
+                    <option value="1"> Rectangle </option>
+                </select>
+        </tr>
+-->
+<!--        <tr value="1" id="col_type_1" class="col_type_options" >
+            <td> Length</td>
+            <td> <input type="number" name="len_col" > </td>
             <td> Width </td>
-            <td> <input type="number" name="width_box" id="width"> </td>
+            <td> <input type="number" name="wid_col" > </td>
+        </tr>-->
+
+        <tr value="1" id="col_type_1" class="col_type_options" >        
+            <td> Length</td>                                            
+            <td> <input type="number" name="len_col" > </td>            
         </tr>
         <tr>
-            <td> Height </td>
-            <td> <input type="number" name="height_box" id="height"> </td>
+            <td> Width </td>                                            
+            <td> <input type="number" name="wid_col" > </td>            
+        </tr> 
+       
+        <tr value="0" id="col_type_0" class="col_type_options">         
+            <td>Radius of column</td>                                   
+            <td> <input type="number" name="radius_col" > </td>           
+        </tr>
+
+        <tr> 
+            <td> Depth of beam  </td>
+            <td> <input type="number" name="dep_beam" > </td>
+        </tr>
+        <tr>
+            <td> Width of beam </td>
+            <td> <input type="number" name="wid_col" > </td>
         </tr>
         <tr>
             <td></td>
             <td> <input type="submit" value="submit" id="submit"> </td>
         </tr>
+    </table>
 </form>
 </center>
+<!--
+<script type="text/javascript" src=" https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+
+<script>
+
+$(document).ready(function(){
+
+    $('#col_type').on('change', function() {         
+      $('tr.col_type_options').hide();
+        $('#col_type_' + $(this).val() ).show();
+    });
+
+});
+</script>-->

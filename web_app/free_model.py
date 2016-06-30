@@ -1,7 +1,26 @@
 import csv, FreeCAD, Part
-from FreeCAD import Base
+#from FreeCAD import Base
+
+import sys
+sys.path.insert(0, './src')
+
+from views import lists
+
+total = len(sys.argv)
+cmdargs = str(sys.argv)
+
+print total
+print cmdargs
+
+print "listsjdsljsldjldjljj"
+print lists
 
 
+#for arg in sys.argv:
+#    print arg
+
+
+"""
 f = open('some.csv')
 sp = csv.reader(f, delimiter=' ')
 
@@ -28,3 +47,4 @@ def box(name, l, w, h):
 
 box("name", length, width, height)
 App.getDocument("Unnamed").saveAs("./box.fcstd")
+"""
