@@ -11,14 +11,14 @@ App.setActiveDocument("project")
 
 # Storing all objects (i.e parts of building like column, beams and slabs)
 # in obj_list
-obj_list = FreeCAD.ActiveDocument.Objects
+#obj_list = FreeCAD.ActiveDocument.Objects
 
 # Adding object 'Compound' in active document. The Compound object stores
 # all parts of the building
-App.activeDocument().addObject("Part::Compound","Compound")
+#App.activeDocument().addObject("Part::Compound","Compound")
 
 # Links all the objects present in obj_list to Compound
-App.activeDocument().Compound.Links = obj_list
+#App.activeDocument().Compound.Links = obj_list
 
 # Adding the object 'Page' in active document
 App.ActiveDocument.addObject('Drawing::FeaturePage','Page')
