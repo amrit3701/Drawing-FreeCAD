@@ -4,10 +4,39 @@
     {{ key }} : {{ value }} </br>
 {% endfor %}
 
-
-<!--{{ length }}
-{{ width }}
-{{ height }}
--->
-
 <a href="{% url 'download' %}">download</a>
+
+<form action="{% url 'drawing' %}" method="POST">
+    {% csrf_token %} 
+    <table>
+        <tr>
+            <td> Direction w.r.t x-axis  </td>
+            <td> <input type="number" name="x_dir"> </td>
+        </tr>
+        <tr>
+            <td> Direction w.r.t y-axis </td>
+            <td> <input type="number" name="y_dir" > </td>
+        </tr>
+        <tr>
+            <td> Direction w.r.t z-axis </td>
+            <td> <input type="number" name="z_dir" > </td>
+        </tr>
+        <tr>
+            <td> Hidden line </td>
+            <td> <input type="radio" name="hid_lines" value=5 /> Show
+                <input type="radio" name="hid_lines" value=6 /> Hide </td>
+        </tr>
+        <tr>
+            <td> Scale Size </td>
+            <td> <input type="number" name="scale_size"> </td>
+        </tr>
+        <tr> 
+            <td> Rotation  </td>
+            <td> <input type="text" name="rotation"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td> <input type="submit" value="submit" id="submit"> </td>
+        </tr>
+    </table>
+</form>

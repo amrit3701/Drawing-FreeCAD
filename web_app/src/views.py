@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 import os, threading, csv, tempfile
+from collections import OrderedDict
 #from django.core.servers.basehttp import FileWrapper
 #from wsgiref.util import FileWrapper
 
@@ -10,10 +11,17 @@ import os, threading, csv, tempfile
 def index(request):
     return render(request, 'web_app/index.html')
 
-lists = {'stories':'','dep_of_foun':'','plinth_lev':'','cclear_height':'',
-    'dep_slab':'','rep_span_len':'','rep_span_wid':'','col_type':'',
-        'len_col':'','wid_col':'',  'radius_col':'','dep_beam':'',
-            'wid_beam':''}
+#lists = {'stories':'','dep_of_foun':'','plinth_lev':'','cclear_height':'',
+#    'dep_slab':'','rep_span_len':'','rep_span_wid':'','col_type':'',
+#        'len_col':'','wid_col':'',  'radius_col':'','dep_beam':'',
+#            'wid_beam':''}
+#
+lists = OrderedDict([('stories', ''), ('dep_of_foun', ''), ('plinth_lev', ''),
+            ('cclear_height', ''), ('dep_slab', ''), ('rep_span_len', ''),
+                ('rep_span_wid', ''), ('col_type', ''), ('len_col', ''),
+                    ('wid_col', ''), ('radius_col', ''), ('dep_beam', ''),
+                        ('wid_beam', '')])
+
 lis = ['stories','dep_of_foun','plinth_lev','cclear_height','dep_slab','rep_span_len','rep_span_wid','col_type','len_col','wid_col','radius_col','dep_beam','wid_beam']
 
 #bb = []
@@ -23,19 +31,17 @@ def specs(request):
     global lis
     bb = list()
     for var in lists.keys():
-        request.session[var] = request.POST.get(var)
-        print("session  %s"  %request.session[var])
+        lists[var] = request.POST.get(var)
+        # print("session  %s"  %request.session[var])
     print lists
 #    print lists['rep_span_len']
 
-    for i in lis:
-        bb.append(request.POST.get(i))
-    print("list is : %s" %bb)
+#    print("list is : %s" %bb)
     f = open('some.csv', 'w')
     ww = csv.writer(f, delimiter=' ')
     a = []
-    for i in bb:
-        a.append(i)
+    for i in lists.keys():
+        a.append(lists[i])
     ww.writerow(a)
     f.close()
     os.system('rm box.fcstd')
@@ -46,10 +52,19 @@ def specs(request):
     return render(request, 'web_app/specs.html', {'lists': lists})
 
 
-
 def download(request):
     command = "project.fcstd"
     f = open(command)
     response = HttpResponse(f, content_type='application/fcstd')
     response['Content-Disposition'] = 'attachment; filename="project.fcstd"'
     return response
+
+draw_list = OrderedDict([('x_dir', ''), ('y_dir', ''), ('z_dir', ''),
+                ('hid_lines', ''), ('scale_size', ''), ('rotation', '')])
+
+def drawing(request):
+    global draw_list
+    for i in draw_list.keys():
+        draw_list[i] = request.POST.get(i)
+    print draw_list
+    return render(request,'web_app/drawing.html', {'draw_list':draw_list})

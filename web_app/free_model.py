@@ -1,23 +1,24 @@
 import csv, FreeCAD, Part
 #from FreeCAD import Base
 
-import sys
-sys.path.insert(0, './src')
+import sys, os
+#sys.path.insert(0, './src')
 
-from views import lists
+#from views import lists
 
-total = len(sys.argv)
-cmdargs = str(sys.argv)
+#
+#total = len(sys.argv)
+#cmdargs = str(sys.argv)
+#
+#print total
+#print cmdargs
+#
+#print "listsjdsljsldjldjljj"
+#print lists
+#
 
-print total
-print cmdargs
-
-print "listsjdsljsldjldjljj"
-print lists
-
-
-#for arg in sys.argv:
-#    print arg
+for arg in sys.argv:
+    print arg
 
 
 """
