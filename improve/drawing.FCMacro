@@ -1,10 +1,22 @@
-import os                                                               
-import subprocess                                                       
+print 1
+import os 
+print 11                                                              
+import subprocess
+print 12                                                  
 #from PySide import QtGui                                               
 #import FreeCADGui                                                      
 import FreeCAD            
-import Arch, Draft, Drawing                                              
+print 13
+import Arch
+print 14
+import Draft
+print 15
+import Drawing       
+
+print 2                                       
 from building_func import *
+
+print 3
 import macro_building_drawing
 #FreeCAD.openDocument("/home/ambu/Documents/Drawing-FreeCAD/web_app/project.fcstd")
 App.setActiveDocument("project")
@@ -149,8 +161,12 @@ obj_view_specs.draw_obj_view(view)
 viewIso = obj_view_specs("viewIso", "Compound", 1, 1, 1, 335, 60, True, 2, 120, "page2")
 obj_view_specs.draw_obj_view(viewIso)
 
-sec_obj = section_view_specs("Compound", 10, 0, 0, 0, 0, 1, 0, 50, 200, 2, 0, 4, "page3")
-section_view_specs.draw_section_view(sec_obj)
+#import building_specs
+for i in range(0, stories):
+	a = "storey"+str(i)
+	sec_obj = section_view_specs("Compound", 10, 0, 0, 0, 0, 1, 0, 50, 200, 2, 0, i, a)
+	section_view_specs.draw_section_view(sec_obj)
+	
 
-App.getDocument("project").saveAs("/home/ambu/Documents/Drawing-FreeCAD/web_app/project.fcstd")
+App.getDocument("project").saveAs("../web_app/project.fcstd")
 FreeCAD.closeDocument("project")
