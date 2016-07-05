@@ -44,8 +44,8 @@ def specs(request):
         a.append(lists[i])
     ww.writerow(a)
     f.close()
-    os.system('rm box.fcstd')
-    l = os.system('freecadcmd macro_building_drawing.FCMacro')
+    os.system('rm project.fcstd')
+    os.system('cd FreeCAD_macros && freecadcmd drawing.py')
 #    print l
 #    print request.POST
 #    print len(request.POST)
@@ -53,10 +53,12 @@ def specs(request):
 
 
 def download(request):
-    command = "project.fcstd"
+    os.system('cp project.fcstd ./drawings/svg_pdf/')
+    os.system('cd FreeCAD_macros && freecadcmd savepdf.FCMacro')
+    command = "./drawings/drawings.zip"
     f = open(command)
-    response = HttpResponse(f, content_type='application/fcstd')
-    response['Content-Disposition'] = 'attachment; filename="project.fcstd"'
+    response = HttpResponse(f, content_type='application/zip')
+    response['Content-Disposition'] = 'attachment; filename="drawings.zip"'
     return response
 
 draw_list = OrderedDict([('x_dir', ''), ('y_dir', ''), ('z_dir', ''),

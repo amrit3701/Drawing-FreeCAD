@@ -1,0 +1,40 @@
+import os
+import subprocess
+#from PySide import QtGui
+#import FreeCADGui
+import FreeCAD
+
+#FreeCAD.closeDocument("/home/ambu/Documents/Drawing-FreeCAD/project.fcstd")
+#FreeCAD.open(u"/home/ambu/Documents/Drawing-FreeCAD/project.fcstd")
+
+FreeCAD.openDocument("/home/ambu/Documents/Drawing-FreeCAD/project.fcstd")
+
+App.setActiveDocument("project")
+print 0
+#obj = FreeCADGui.Selection.getSelection()[0]
+obj = App.ActiveDocument.getObject("Page")
+
+print 1
+# Path to Inkscape executable
+inkscape_path = "/usr/bin/inkscape"
+# Exported PDF file location
+file_location = os.path.expanduser("/home/ambu/Documents/Drawing-FreeCAD/" + os.sep + obj.Label + ".pdf")
+
+# ------------------------------------------------------------------------------------
+#try:
+page = getattr(obj, 'PageResult')
+
+
+#except AttributeError:
+#    QtGui.QMessageBox.warning(None,"Export PDF", "Page object has not been selected.")
+#else:
+#    file_exists = os.path.isfile(file_location)
+#    if file_exists == True:
+#        QtGui.QMessageBox.warning(None,"Export PDF", "A file with the name " + obj.Label + ".pdf already exists:\n\n" + file_location)
+#    else:
+call_inkscape = [inkscape_path, "-f", obj.PageResult, "-A", file_location]
+subprocess.call(call_inkscape)
+
+cmd = "cp "+page+" /home/ambu/Documents/Drawing-FreeCAD/"
+
+os.system(cmd)

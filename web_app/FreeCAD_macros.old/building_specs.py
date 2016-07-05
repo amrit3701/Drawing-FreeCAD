@@ -1,10 +1,10 @@
 import csv, sys
 
-#sys.path.insert(0, '..')
+sys.path.insert(0, '../src')
 
-#from views import lis
+from views import lis
 
-#print lis
+print lis
 
 
 

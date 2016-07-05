@@ -1,12 +1,7 @@
-import csv, sys
-sys.path.insert(0, '.')
-
 from building_func import *
 
-FreeCAD.newDocument("project")
-FreeCAD.setActiveDocument("project")
-
-#plinth_lev = int(plinth_lev)
+App.newDocument("project")
+App.setActiveDocument("project")
 
 i = 0
 j = 0
@@ -14,14 +9,17 @@ k = 0
 nodes = []
 z = 0
 print 0
+
+int(plinth_lev)
 #Drawing ground plane to depict ground level
-plane([-3, -3, plinth_lev - 2 * plinth_lev], x_sum(no_spans_len) + 6, y_sum(no_span_wid) + 6)
+plane([-3, -3, int(plinth_lev) - 2 * int(plinth_lev)], x_sum(no_spans_len) + 6, y_sum(no_span_wid) + 6)
 print 2
 #Drawing plinth plane to depict plinth level
 plane([0, 0, 0], x_sum(no_spans_len), y_sum(no_span_wid))
 
 print 1
 
+"""
 while z <= stories:
 	x = 0
 	while x <= no_spans_len:
@@ -77,14 +75,5 @@ while z <= stories:
 #FreeCAD.Gui.activeDocument().activeView().viewAxometric()
 FreeCAD.Console.PrintMessage("fdfffdf\n")
 print z_sum
-
-# Storing all objects (i.e parts of building like column, beams and slabs)
-# in obj_list
-obj_list = FreeCAD.ActiveDocument.Objects
-
-# Adding object 'Compound' in active document. The Compound object stores
-# all parts of the building
-FreeCAD.activeDocument().addObject("Part::Compound","Compound")
-
-# Links all the objects present in obj_list to Compound
-FreeCAD.activeDocument().Compound.Links = obj_list
+App.getDocument("project").saveAs("/home/ambu/Documents/Drawing-FreeCAD/project.fcstd")
+"""
