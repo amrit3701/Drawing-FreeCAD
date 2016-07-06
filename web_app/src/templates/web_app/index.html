@@ -6,6 +6,28 @@ tr.col_type_options { display: none; }
 </head> 
 -->
 
+<script>                                                            
+    $(document).ready(function(){                                   
+         $('[data-toggle="tooltip"]').tooltip({                     
+             placement : 'top'                                      
+         });                                                        
+    });                                                             
+    function autofill(){                                            
+        document.getElementById("stories").value="8";           
+        document.getElementById("dep_of_foun").value="6";          
+        document.getElementById("plinth_lev").value="4";       
+        document.getElementById("cclear_height").value="8@10";          
+        document.getElementById("dep_slab").value="1";                 
+        document.getElementById("rep_span_len").value="6@8";           
+        document.getElementById("rep_span_wid").value="5@8";          
+        document.getElementById("col_type").value="0";       
+        document.getElementById("len_col").value="1";          
+        document.getElementById("wid_col").value="1";   
+        document.getElementById("radius_col").value="1";       
+        document.getElementById("dep_beam").value="1";          
+        document.getElementById("wid_beam").value="1";                   
+    } 
+</script> 
 
 <h1 style="text-align:center;">Enter the specification fo the box</h1>
 <center>
@@ -14,36 +36,36 @@ tr.col_type_options { display: none; }
     <table>
         <tr>
             <td> Stories </td>
-            <td> <input type="number" name="stories" </td>
+            <td> <input type="number" name="stories" id="stories"></td>
         </tr>
         <tr>
             <td> Depth of foudation </td>
-            <td> <input type="number" name="dep_of_foun" > </td>
+            <td> <input type="number" name="dep_of_foun" id="dep_of_foun"> </td>
         </tr>
         <tr>
             <td> Plinth level </td>
-            <td> <input type="number" name="plinth_lev" > </td>
+            <td> <input type="number" name="plinth_lev" id="plinth_lev"> </td>
         </tr>
         <tr>
             <td>Clear height</td>
-            <td> <input type="text" name="cclear_height"> </td>
+            <td> <input type="text" name="cclear_height" id="cclear_height"> </td>
         </tr>
         <tr>
             <td> Depth of slab </td>
-            <td> <input type="number" name="dep_slab"> </td>
+            <td> <input type="number" name="dep_slab" id="dep_slab"> </td>
         </tr>
         <tr> 
             <td> Representation of spen length  </td>
-            <td> <input type="text" name="rep_span_len" ></td>
+            <td> <input type="text" name="rep_span_len" id="rep_span_len"></td>
         </tr>
         <tr>
             <td> Representation of span width </td>
-            <td> <input type="text" name="rep_span_wid" > </td>
+            <td> <input type="text" name="rep_span_wid" id="rep_span_wid"> </td>
         </tr>
 
         <tr>                                                            
             <td> Column type </td>                     
-            <td> <input type="number" name="col_type" > </td>         
+            <td> <input type="number" name="col_type" id="col_type"> </td>         
         </tr> 
 
 
@@ -64,28 +86,28 @@ tr.col_type_options { display: none; }
 
         <tr value="1" id="col_type_1" class="col_type_options" >        
             <td> Length</td>                                            
-            <td> <input type="number" name="len_col" > </td>            
+            <td> <input type="number" name="len_col" id="len_col"> </td>            
         </tr>
         <tr>
             <td> Width </td>                                            
-            <td> <input type="number" name="wid_col" > </td>            
+            <td> <input type="number" name="wid_col" id="wid_col"> </td>            
         </tr> 
        
         <tr value="0" id="col_type_0" class="col_type_options">         
             <td>Radius of column</td>                                   
-            <td> <input type="number" name="radius_col" > </td>           
+            <td> <input type="number" name="radius_col" id="radius_col" > </td>           
         </tr>
 
         <tr> 
             <td> Depth of beam  </td>
-            <td> <input type="number" name="dep_beam" > </td>
+            <td> <input type="number" name="dep_beam" id="dep_beam"> </td>
         </tr>
         <tr>
             <td> Width of beam </td>
-            <td> <input type="number" name="wid_beam" > </td>
+            <td> <input type="number" name="wid_beam" id="wid_beam"> </td>
         </tr>
         <tr>
-            <td></td>
+            <td><a href="#"  id="autofill" onclick="autofill()">Autofill values</a></td>
             <td> <input type="submit" value="submit" id="submit"> </td>
         </tr>
     </table>
