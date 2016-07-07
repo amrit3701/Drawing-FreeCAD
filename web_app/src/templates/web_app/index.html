@@ -40,11 +40,11 @@ tr.col_type_options { display: none; }
         </tr>
         <tr>
             <td> Depth of foudation </td>
-            <td> <input type="number" name="dep_of_foun" id="dep_of_foun"> </td>
+            <td> <input type="number" name="dep_of_foun" step="any" min="0" max="100" id="dep_of_foun"> </td>
         </tr>
         <tr>
             <td> Plinth level </td>
-            <td> <input type="number" name="plinth_lev" id="plinth_lev"> </td>
+            <td> <input type="number" name="plinth_lev" step="any" min="0" max="100" id="plinth_lev"> </td>
         </tr>
         <tr>
             <td>Clear height</td>
@@ -52,7 +52,7 @@ tr.col_type_options { display: none; }
         </tr>
         <tr>
             <td> Depth of slab </td>
-            <td> <input type="number" name="dep_slab" id="dep_slab"> </td>
+            <td> <input type="number" name="dep_slab" step="any" min="0" max="100" id="dep_slab"> </td>
         </tr>
         <tr> 
             <td> Representation of spen length  </td>
@@ -86,25 +86,25 @@ tr.col_type_options { display: none; }
 
         <tr value="1" id="col_type_1" class="col_type_options" >        
             <td> Length</td>                                            
-            <td> <input type="number" name="len_col" id="len_col"> </td>            
+            <td> <input type="number" name="len_col" step="any" min="0" max="100" id="len_col"> </td>            
         </tr>
         <tr>
             <td> Width </td>                                            
-            <td> <input type="number" name="wid_col" id="wid_col"> </td>            
+            <td> <input type="number" name="wid_col" step="any" min="0" max="100" id="wid_col"> </td>            
         </tr> 
        
         <tr value="0" id="col_type_0" class="col_type_options">         
             <td>Radius of column</td>                                   
-            <td> <input type="number" name="radius_col" id="radius_col" > </td>           
+            <td> <input type="number" name="radius_col" step="any" min="0" max="100" id="radius_col" > </td>           
         </tr>
 
         <tr> 
             <td> Depth of beam  </td>
-            <td> <input type="number" name="dep_beam" id="dep_beam"> </td>
+            <td> <input type="number" name="dep_beam" step="any" min="0" max="100"  id="dep_beam"> </td>
         </tr>
         <tr>
             <td> Width of beam </td>
-            <td> <input type="number" name="wid_beam" id="wid_beam"> </td>
+            <td> <input type="number" name="wid_beam" step="any" min="0" max="100" id="wid_beam"> </td>
         </tr>
         <tr>
             <td><a href="#"  id="autofill" onclick="autofill()">Autofill values</a></td>

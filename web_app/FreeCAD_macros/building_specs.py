@@ -17,13 +17,13 @@ for i in sp:
 
 stories=int(data[0])                       #Number of stories
 
-dep_of_foun=int(data[1])                 #Depth of Foundation
+dep_of_foun=float(data[1])                 #Depth of Foundation
 
-plinth_lev=int(data[2])                  #Plinth level of building
+plinth_lev=float(data[2])                  #Plinth level of building
 
 cclear_height=data[3]            #Clear Height of each story
 
-dep_slab=int(data[4])                    #Depth of Slab
+dep_slab=float(data[4])                    #Depth of Slab
 
 #rep_span_len="2@8+9+1@10+2@12"  #Representation of span length
 rep_span_len=data[5]
@@ -33,15 +33,15 @@ rep_span_wid=data[6]
 
 col_type=int(data[7])                      #Column type 0 for cylindrical and 1 for rectangular
 
-len_col=int(data[8])                       #Length of Column (for column type 1)
+len_col=float(data[8])                       #Length of Column (for column type 1)
 
-wid_col=int(data[9])                       #Width of Column (for column type 1)
+wid_col=float(data[9])                       #Width of Column (for column type 1)
 
-radius_col=int(data[10])                   #Radius of column (for column type 0)
+radius_col=float(data[10])                   #Radius of column (for column type 0)
 
-dep_beam=int(data[11])                      #Depth of Beam
+dep_beam=float(data[11])                      #Depth of Beam
 
-wid_beam=int(data[12])                      #Width of Beam
+wid_beam=float(data[12])                      #Width of Beam
 
 
 print("stories %s" %stories)
