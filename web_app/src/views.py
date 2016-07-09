@@ -53,6 +53,8 @@ def specs(request):
 
 
 def download(request):
+    os.system('cd drawings/svg_pdf && rm *')
+    os.system('cd drawings && rm drawings.zip')
     os.system('cp project.fcstd ./drawings/svg_pdf/')
     os.system('cd FreeCAD_macros && freecadcmd savepdf.FCMacro')
     command = "./drawings/drawings.zip"
