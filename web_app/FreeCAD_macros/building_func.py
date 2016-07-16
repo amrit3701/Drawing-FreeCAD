@@ -6,10 +6,9 @@ ac_doc = FreeCAD.ActiveDocument
 
 # Process span input (from config file).
 def span_process(span_string):
-
+    print 234
     # Remove leading and trailing whitespaces, and put in "span_st" variable.
     span_st=string.strip(span_string)
-
     # Split string contained in "span_st", where the "+" is encountered and put in span_sp array.
     span_sp=string.split(span_st, '+')
     index=0
