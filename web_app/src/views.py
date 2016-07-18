@@ -27,30 +27,33 @@ lis = ['stories','dep_of_foun','plinth_lev','cclear_height','dep_slab','rep_span
 #bb = []
 
 def specs(request):
-    global lists
-    global lis
-    bb = list()
-    for var in lists.keys():
-        lists[var] = request.POST.get(var)
-        # print("session  %s"  %request.session[var])
-    print lists
+    try:
+        global lists
+        global lis
+        bb = list()
+        for var in lists.keys():
+            lists[var] = request.POST.get(var)
+            # print("session  %s"  %request.session[var])
+        print lists
 #    print lists['rep_span_len']
 
 #    print("list is : %s" %bb)
-    f = open('some.csv', 'w')
-    ww = csv.writer(f, delimiter=' ')
-    a = []
-    for i in lists.keys():
-        a.append(lists[i])
-    ww.writerow(a)
-    f.close()
-    os.system('rm project.fcstd')
-    os.system('cd FreeCAD_macros && freecadcmd drawing.py')
+        f = open('some.csv', 'w')
+        ww = csv.writer(f, delimiter=' ')
+        a = []
+        for i in lists.keys():
+            a.append(lists[i])
+        ww.writerow(a)
+        f.close()
+        os.system('rm project.fcstd')
+        os.system('cd FreeCAD_macros && freecadcmd drawing.py')
 #    print l
 #    print request.POST
 #    print len(request.POST)
-    return render(request, 'web_app/specs.html', {'lists': lists})
-
+        return render(request, 'web_app/specs.html', {'lists': lists})
+    except:
+        return render(request, 'web_app/specs.html',
+        {'message': 'please fill again'})
 
 def download(request):
     os.system('cd drawings/svg_pdf && rm *')

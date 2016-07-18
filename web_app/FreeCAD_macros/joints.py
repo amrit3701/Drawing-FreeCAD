@@ -2,10 +2,10 @@ import mysql.connector
 
 cnx=mysql.connector.connect(user='root',password='a', database='Sim')
 
+
+# Joint
 cursor=cnx.cursor()
-
-query = ("select idd,x,y,z from Joint;")
-
+query = ("select idd,x,y,z from Joint where job_id=9;")
 cursor.execute(query)
 
 a=[]
@@ -27,9 +27,9 @@ App.setActiveDocument("Unnamed")
 for i in joints.keys():
     Draft.makePoint(joints[i][0], joints[i][1], joints[i][2])
 
-
+# Member incidence
 cursor2=cnx.cursor()
-query2 = ("select member_id, joint_id from Member_incidence;")
+query2 = ("select member_id, joint_id from Member_incidence where job_id=9;")
 cursor2.execute(query2)
 
 b=[]
@@ -75,6 +75,39 @@ def make_box(name, length, width, height, base_vector, base_rotation):
 dim1=.5
 dim2=.5
 
+# Member_property
+cursor3=cnx.cursor()
+query3 = ("select idd, YD, ZD from Member_property where job_id=9;")
+cursor3.execute(query3)
+
+c = []
+for i in cursor3:
+    c.append(i)
+
+member_property = dict()
+
+for j in range(len(c)):
+    temp = []
+    temp.append(c[j][1])
+    temp.append(c[j][2])
+    member_property[c[j][0]] = temp
+
+# Member
+query5 = ("select member_id, member_property from Member where job_id = 9;")
+cursor5=cnx.cursor()
+cursor5.execute(query5)
+
+e = []
+member = dict()
+
+for i in cursor5:
+    e.append(i)
+
+for i in range(len(e)):
+    member[e[i][0]] = e[i][1]
+
+
+# Main structure with member property
 for i in mem_incidence.keys():
     w1=mem_incidence[i][0]
     w2=mem_incidence[i][1]
@@ -84,21 +117,26 @@ for i in mem_incidence.keys():
     if (joints[w2][0]-joints[w1][0]) != 0:
         nam = "beam_xaxis"+str(i)
         if joints[w2][0] > joints[w1][0]:
-            make_box(nam, dis, dim1, dim2, [joints[w1][0]+.25,joints[w1][1],joints[w1][2]], [0, 0, 0, 1])
+            if member_property[member[i]][0] > member_property[member[i]][1]:
+                make_box(nam, dis, member_property[member[i]][0], member_property[member[i]][1], [joints[w1][0]+((member_property[1][0])/2),joints[w1][1],joints[w1][2]], [0, 0, 0, 1])
+            else:
+                make_box(nam, dis, member_property[member[i]][0], member_property[member[i]][1], [joints[w1][0]+((member_property[1][1])/2),joints[w1][1], joints[w1][2]], [0, 0, 0, 1])
         else:
-            make_box(nam, dis, dim1, dim2, [joints[w2][0]+.25,joints[w2][1],joints[w2][2]], [0, 0, 0, 1])
+            if member_property[member[i]][0] > member_property[member[i]][1]:
+                make_box(nam, dis, member_property[member[i]][0], member_property[member[i]][1], [joints[w2][0]+((member_property[member[i]][0]-                         member_property[member[i]][1])/2),joints[w2][1],joints[w2][2]], [0, 0, 0, 1])
+            else:
+                make_box(nam, dis, member_property[member[i]][0], member_property[member[i]][1], [joints[w2][0]+((member_property[member[i]][1]-                         member_property[member[i]][0])/2),joints[w2][1],joints[w2][2]], [0, 0, 0, 1])
 
     if (joints[w2][1]-joints[w1][1]) != 0:
         nam = "column_yaxis"+str(i)
         if joints[w2][1] > joints[w1][1]:
-            make_box(nam, dim1, dis, dim2, [joints[w1][0],joints[w1][1]+.25,joints[w1][2]], [0, 0, 0, 1])
+            make_box(nam, member_property[member[i]][0], dis, member_property[member[i]][1], [joints[w1][0],joints[w1][1],joints[w1][2]], [0, 0, 0, 1])
         else:
-            make_box(nam, dim1, dis, dim2, [joints[w2][0],joints[w2][1]+.25,joints[w2][2]], [0, 0, 0, 1])
+            make_box(nam, member_property[member[i]][0], dis, member_property[member[i]][1], [joints[w2][0],joints[w2][1],joints[w2][2]], [0, 0, 0, 1])
 
     if (joints[w2][2]-joints[w1][2]) != 0:
         nam = "beam_zaxis"+str(i)
         if joints[w2][2] > joints[w1][2]:
-            make_box(nam, dim1, dim2, dis, [joints[w1][0],joints[w1][1],joints[w1][2]+.25], [0, 0, 0, 1])
+            make_box(nam, member_property[member[i]][1], member_property[member[i]][0], dis, [joints[w1][0],joints[w1][1],joints[w1][2]], [0, 0, 0, 1])
         else:
-            make_box(nam, dim1, dim2, dis, [joints[w2][0],joints[w2][1],joints[w2][2]+.25], [0, 0, 0, 1])
-
+            make_box(nam, member_property[member[i]][1], member_property[member[i]][0], dis, [joints[w2][0],joints[w2][1],joints[w2][2]], [0, 0, 0, 1])
