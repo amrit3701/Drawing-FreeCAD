@@ -1,38 +1,37 @@
 import mysql.connector
 
-cnx=mysql.connector.connect(user='root',password='a', database='Sim')
-
+cnx = mysql.connector.connect(user='root', password='a', database='Sim')
 
 # Joint
-cursor=cnx.cursor()
+cursor = cnx.cursor()
 query = ("select idd,x,y,z from Joint where job_id=9;")
 cursor.execute(query)
 
-a=[]
+a = []
 
 for i in cursor:
     a.append(i)
 
 joints = dict()
 for i in range(len(a)):
-   val=a[i][0]
-   temp=[]
-   for j in range(1,4):
-       temp.append(a[i][j])
-   joints[a[i][0]] = temp
+    val = a[i][0]
+    temp = []
+    for j in range(1, 4):
+        temp.append(a[i][j])
+    joints[a[i][0]] = temp
 
 App.newDocument("Unnamed")
 App.setActiveDocument("Unnamed")
 
-for i in joints.keys():
-    Draft.makePoint(joints[i][0], joints[i][1], joints[i][2])
+#for i in joints.keys():
+#    Draft.makePoint(joints[i][0], joints[i][1], joints[i][2])
 
 # Member incidence
-cursor2=cnx.cursor()
+cursor2 = cnx.cursor()
 query2 = ("select member_id, joint_id from Member_incidence where job_id=9;")
 cursor2.execute(query2)
 
-b=[]
+b = []
 
 for i in cursor2:
     b.append(i)
@@ -40,43 +39,46 @@ for i in cursor2:
 # Initialise a dictionary
 mem_incidence = dict()
 # Iterate from 0 to len of a
-for i in range(0,len(b)):
-    temp=[]
+for i in range(0, len(b)):
+    temp = []
     # Storing the value of the key for dictionary
-    val=b[i][0];
-    for j in range(0,len(b)):
+    val = b[i][0];
+    for j in range(0, len(b)):
         # Check if val is equal to another key i.e "a[j][0]"
         if val == b[j][0]:
             # Append the value of the key in temp
             temp.append(b[j][1]);
     # Append key (val) and value (temp in dictionary)
-    mem_incidence[val]=temp
+    mem_incidence[val] = temp
 
-for i in mem_incidence.keys():
-    w=mem_incidence[i][0]
-    w1=mem_incidence[i][1]
-    start_pt=FreeCAD.Vector(joints[w][0],joints[w][1],joints[w][2])
-    end_pt=FreeCAD.Vector(joints[w1][0],joints[w1][1],joints[w1][2])
-    Points=[start_pt,end_pt]
-    Draft.makeWire(Points,closed=False,face=True,support=None)
+#for i in mem_incidence.keys():
+#    w = mem_incidence[i][0]
+#    w1 = mem_incidence[i][1]
+#    start_pt = FreeCAD.Vector(joints[w][0], joints[w][1], joints[w][2])
+#    end_pt = FreeCAD.Vector(joints[w1][0], joints[w1][1], joints[w1][2])
+#    Points = [start_pt, end_pt]
+#    Draft.makeWire(Points, closed=False, face=True, support=None)
 
-
-from math import sqrt,pow
+from math import sqrt, pow
 from FreeCAD import Base
 
-def make_box(name, length, width, height, base_vector, base_rotation):
-        ac_doc = FreeCAD.ActiveDocument
-        ac_doc.addObject("Part::Box",name)
-        getattr(ac_doc, name).Length = length
-        getattr(ac_doc, name).Width = width
-        getattr(ac_doc, name).Height = height
-        getattr(ac_doc, name).Placement=Base.Placement(Base.Vector(base_vector[0],base_vector[1],base_vector[2]),Base.Rotation(base_rotation[0],base_rotation[1],        base_rotation[2],base_rotation[3]))
 
-dim1=.5
-dim2=.5
+def make_box(name, length, width, height, base_vector, base_rotation):
+    ac_doc = FreeCAD.ActiveDocument
+    ac_doc.addObject("Part::Box", name)
+    getattr(ac_doc, name).Length = length
+    getattr(ac_doc, name).Width = width
+    getattr(ac_doc, name).Height = height
+    getattr(ac_doc, name).Placement = Base.Placement(Base.Vector(base_vector[0], base_vector[1], base_vector[2]),
+                                                     Base.Rotation(base_rotation[0], base_rotation[1], base_rotation[2],
+                                                                   base_rotation[3]))
+
+
+dim1 = .5
+dim2 = .5
 
 # Member_property
-cursor3=cnx.cursor()
+cursor3 = cnx.cursor()
 query3 = ("select idd, YD, ZD from Member_property where job_id=9;")
 cursor3.execute(query3)
 
@@ -94,7 +96,7 @@ for j in range(len(c)):
 
 # Member
 query5 = ("select member_id, member_property from Member where job_id = 9;")
-cursor5=cnx.cursor()
+cursor5 = cnx.cursor()
 cursor5.execute(query5)
 
 e = []
@@ -106,37 +108,105 @@ for i in cursor5:
 for i in range(len(e)):
     member[e[i][0]] = e[i][1]
 
+def col(jt):
+    lstMemIncidence = []
+    lstParticularMemInc = []
+    lstofJoints = []
+    for i in mem_incidence.keys():
+        if joints[mem_incidence[i][0]][0] == joints[jt][0] and joints[mem_incidence[i][0]][1] == joints[jt][1] and \
+                        joints[mem_incidence[i][0]][2] == joints[jt][2]:
+            lstMemIncidence.append(i)
+        if joints[mem_incidence[i][1]][0] == joints[jt][0] and joints[mem_incidence[i][1]][1] == joints[jt][1] and \
+                        joints[mem_incidence[i][1]][2] == joints[jt][2]:
+            lstMemIncidence.append(i)
+    print("lstMemIncidence: %s" %lstMemIncidence)
+    for j in range(len(lstMemIncidence)):
+        w1 = mem_incidence[lstMemIncidence[j]][0]
+        w2 = mem_incidence[lstMemIncidence[j]][1]
+        # print("w1 = %s, w2= %s" %(w1,w2))
+        if (joints[w2][1] - joints[w1][1]) != 0:
+            lstParticularMemInc.append(lstMemIncidence[j])
+    print("lstParticularMemInc: %s" %lstParticularMemInc)
+    for z in range(len(lstParticularMemInc)):
+        j = mem_incidence[lstParticularMemInc[z]]
+        for zz in range(len(j)):
+            if j[zz] != jt:
+                lstofJoints.append(j[zz])
+    print("lstofJoints: %s"%lstofJoints)
+
+    if len(lstofJoints) != 1:
+        if joints[lstofJoints[0]][1] > joints[lstofJoints[1]][1]:
+            val = lstofJoints[1]
+        else:
+            val = lstofJoints[0]
+    else:
+        val = lstofJoints[0]
+    print("val: %s" %val)
+    for ii in range(len(lstParticularMemInc)):
+        if mem_incidence[lstParticularMemInc[ii]][0] == val or mem_incidence[lstParticularMemInc[ii]][1] == val:
+            return lstParticularMemInc[ii]
 
 # Main structure with member property
 for i in mem_incidence.keys():
-    w1=mem_incidence[i][0]
-    w2=mem_incidence[i][1]
-
+    w1 = mem_incidence[i][0]
+    w2 = mem_incidence[i][1]
+    print 1
     dis = sqrt(pow((joints[w2][0]-joints[w1][0]),2)+pow((joints[w2][1]-joints[w1][1]),2)+pow((joints[w2][2]-joints[w1][2]),2))
 
     if (joints[w2][0]-joints[w1][0]) != 0:
-        nam = "beam_xaxis"+str(i)
+        nam = "beam_xaxis" + str(i)
         if joints[w2][0] > joints[w1][0]:
-            if member_property[member[i]][0] > member_property[member[i]][1]:
-                make_box(nam, dis, member_property[member[i]][0], member_property[member[i]][1], [joints[w1][0]+((member_property[1][0])/2),joints[w1][1],joints[w1][2]], [0, 0, 0, 1])
-            else:
-                make_box(nam, dis, member_property[member[i]][0], member_property[member[i]][1], [joints[w1][0]+((member_property[1][1])/2),joints[w1][1], joints[w1][2]], [0, 0, 0, 1])
-        else:
-            if member_property[member[i]][0] > member_property[member[i]][1]:
-                make_box(nam, dis, member_property[member[i]][0], member_property[member[i]][1], [joints[w2][0]+((member_property[member[i]][0]-                         member_property[member[i]][1])/2),joints[w2][1],joints[w2][2]], [0, 0, 0, 1])
-            else:
-                make_box(nam, dis, member_property[member[i]][0], member_property[member[i]][1], [joints[w2][0]+((member_property[member[i]][1]-                         member_property[member[i]][0])/2),joints[w2][1],joints[w2][2]], [0, 0, 0, 1])
+                j = w1
+                print("j: %s"%j)
+                j_member = col(j)
+                print("j_member: %s"%j_member)
+                displace = (member_property[member[j_member]][0])/2
+                print("displace: %s" %displace)
 
-    if (joints[w2][1]-joints[w1][1]) != 0:
-        nam = "column_yaxis"+str(i)
+                make_box(nam, dis, member_property[member[i]][0], member_property[member[i]][1],
+                         [joints[w1][0], joints[w1][1], joints[w1][2]], [0, 0, 0, 1])
+                print "working make box"
+        else:
+                j = w2
+                j_member = col(j)
+                displace = (member_property[member[j_member]][0])/2
+
+                make_box(nam, dis, member_property[member[i]][0], member_property[member[i]][1],
+                         [joints[w2][0], joints[w2][1], joints[w2][2]], [0, 0, 0, 1])
+
+#   if joints[w2][0] > joints[w1][0]:
+#        if member_property[member[i]][0] > member_property[member[i]][1]:
+#            make_box(nam, dis, member_property[member[i]][0], member_property[member[i]][1],
+#                     [joints[w1][0] + member_property[1][0] / 2, joints[w1][1], joints[w1][2]], [0, 0, 0, 1])
+#        else:
+#            make_box(nam, dis, member_property[member[i]][0], member_property[member[i]][1],
+#                     [joints[w1][0] + member_property[1][0] / 2, joints[w1][1], joints[w1][2]], [0, 0, 0, 1])
+#    else:
+#        if member_property[member[i]][0] > member_property[member[i]][1]:
+#            make_box(nam, dis, member_property[member[i]][0], member_property[member[i]][1],
+#                     [joints[w2][0] + member_property[1][0] / 2, joints[w2][1], joints[w2][2]], [0, 0, 0, 1])
+#        else:
+#            make_box(nam, dis, member_property[member[i]][0], member_property[member[i]][1],
+#                     [joints[w2][0] + member_property[1][0] / 2, joints[w2][1], joints[w2][2]], [0, 0, 0, 1])
+#
+
+    if (joints[w2][1] - joints[w1][1]) != 0:
+        nam = "column_yaxis" + str(i)
         if joints[w2][1] > joints[w1][1]:
-            make_box(nam, member_property[member[i]][0], dis, member_property[member[i]][1], [joints[w1][0],joints[w1][1],joints[w1][2]], [0, 0, 0, 1])
+            make_box(nam, member_property[member[i]][0], dis, member_property[member[i]][1],
+                     [joints[w1][0], joints[w1][1], joints[w1][2]], [0, 0, 0, 1])
         else:
-            make_box(nam, member_property[member[i]][0], dis, member_property[member[i]][1], [joints[w2][0],joints[w2][1],joints[w2][2]], [0, 0, 0, 1])
+            make_box(nam, member_property[member[i]][0], dis, member_property[member[i]][1],
+                     [joints[w2][0], joints[w2][1], joints[w2][2]], [0, 0, 0, 1])
 
-    if (joints[w2][2]-joints[w1][2]) != 0:
-        nam = "beam_zaxis"+str(i)
+    if (joints[w2][2] - joints[w1][2]) != 0:
+        nam = "beam_zaxis" + str(i)
         if joints[w2][2] > joints[w1][2]:
-            make_box(nam, member_property[member[i]][1], member_property[member[i]][0], dis, [joints[w1][0],joints[w1][1],joints[w1][2]], [0, 0, 0, 1])
+            make_box(nam, member_property[member[i]][1], member_property[member[i]][0], dis,
+                     [joints[w1][0], joints[w1][1], joints[w1][2] - (member_property[member[i]][0])/2], [0, 0, 0, 1])
         else:
-            make_box(nam, member_property[member[i]][1], member_property[member[i]][0], dis, [joints[w2][0],joints[w2][1],joints[w2][2]], [0, 0, 0, 1])
+            make_box(nam, member_property[member[i]][1], member_property[member[i]][0], dis,
+                     [joints[w2][0], joints[w2][1], joints[w2][2] - (member_property[member[i]][0])/2], [0, 0, 0, 1])
+
+
+
