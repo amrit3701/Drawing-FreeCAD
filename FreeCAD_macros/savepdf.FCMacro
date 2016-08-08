@@ -1,0 +1,52 @@
+import os
+import subprocess
+#from PySide import QtGui
+#import FreeCADGui
+import FreeCAD
+import building_specs
+#FreeCAD.closeDocument("/home/ambu/Documents/Drawing-FreeCAD/project.fcstd")
+#FreeCAD.open(u"/home/ambu/Documents/Drawing-FreeCAD/project.fcstd")
+
+from collections import OrderedDict
+
+FreeCAD.openDocument("../project.fcstd")
+
+App.setActiveDocument("project")
+print 0
+
+list_view = OrderedDict([('front', [1, 0, 0, 1.5]), ('side', [0, 1, 0, 1.5]), ('top', [0, 0, 1, 2])])
+#obj = FreeCADGui.Selection.getSelection()[0]
+#obj = App.ActiveDocument.getObject("Page")
+
+print 1
+# Path to Inkscape executable
+inkscape_path = "/usr/bin/inkscape"
+# Exported PDF file location
+for i in list_view.keys():
+    page_name = "page_"+i
+    obj = App.ActiveDocument.getObject(page_name)
+    file_location = os.path.expanduser("../drawings/svg_pdf" + os.sep + obj.Label + ".pdf")
+    print file_location
+    page = getattr(obj, 'PageResult')
+    #permissions_page = "chmod 777 "+page
+    #os.system(permissions_page)
+    call_inkscape = [inkscape_path, "-f", obj.PageResult, "-A", file_location]
+    subprocess.call(call_inkscape)
+    cmd = "cp "+page+" ../drawings/svg_pdf && chmod 777 ../drawings/*"
+    os.system(cmd)
+
+for i in range(0, building_specs.stories):                                             
+    page_name = "storey"+str(i)   
+    obj = App.ActiveDocument.getObject(page_name)
+    file_location = os.path.expanduser("../drawings/svg_pdf" + os.sep + obj.Label + ".pdf")
+    print file_location
+    page = getattr(obj, 'PageResult')
+    #permissions_page = "chmod 777 "+page
+    #os.system(permissions_page)
+    call_inkscape = [inkscape_path, "-f", obj.PageResult, "-A", file_location]
+    subprocess.call(call_inkscape)
+    cmd = "cp "+page+" ../drawings/svg_pdf && chmod 777 ../drawings/svg_pdf/*"
+    os.system(cmd)
+
+
+os.system("cd ../drawings/ && zip -r drawings.zip ../drawings/svg_pdf/*")
