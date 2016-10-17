@@ -23,7 +23,6 @@ h1{
 }
 #form{
   display: block;
-
 }
 
 #field{
@@ -36,9 +35,6 @@ label{
   font-size: 120%;
 }
 
-#toolit{
-}
-
 a:hover{
   text-decoration: none;
 }
@@ -46,8 +42,3 @@ a:hover{
 .form-control{
   width: 350px;
 }
-
-/*
-<link rel="stylesheet" href="{% static '/bootstrap/css/bootstrap.min.css' %}">
-<link rel="stylesheet" href="{% static '/bootstrap/css/bootstrap-theme.min.css' %}">
-*/
