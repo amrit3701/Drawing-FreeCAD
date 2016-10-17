@@ -23,9 +23,8 @@ h1{
 }
 #form{
   display: block;
-  width: 600;
+  width: 300;
   height: 540;
-  border: solid 2px black;
 }
 
 #field{
@@ -35,3 +34,21 @@ h1{
   padding-right: auto;
   padding-bottom: 30px;
 }
+
+label{
+  margin-right: 10px;
+  font-size: 120%;
+}
+
+#toolit{
+}
+
+a:hover{
+  text-decoration: none;
+
+}
+
+/*
+<link rel="stylesheet" href="{% static '/bootstrap/css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static '/bootstrap/css/bootstrap-theme.min.css' %}">
+*/
