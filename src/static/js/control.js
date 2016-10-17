@@ -1,3 +1,4 @@
+// function that autofills all the inputs //
 function autofill(){
     document.getElementById("stories").value="8";
     document.getElementById("dep_of_foun").value="6";
@@ -14,6 +15,7 @@ function autofill(){
     document.getElementById("wid_beam").value="1";
 }
 
+// function that hides the length, width and radius inputs //
 $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip();
   $("#col_type_0").hide();
@@ -21,6 +23,7 @@ $(document).ready(function(){
   $("#col_type_1_2").hide();
 });
 
+// function that shows specific inputs required by the user //
 function showThem(elm){
   if(elm.value == 0){
     document.getElementById("col_type_0").style.display = "block";
@@ -36,3 +39,5 @@ function showThem(elm){
     //alert("choose!");
   }
 }
+
+//end
