@@ -1,10 +1,3 @@
-<!--
-<head>
-<style>
-tr.col_type_options { display: none; }
-</style>
-</head>
--->
 {% load static %}
 <html>
 <head>
@@ -18,30 +11,9 @@ tr.col_type_options { display: none; }
   <!-- Latest compiled JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+  <script src="{% static '/js/control.js' %}" ></script>
 </head>
 <body>
-<script>
-    function autofill(){
-        document.getElementById("stories").value="8";
-        document.getElementById("dep_of_foun").value="6";
-        document.getElementById("plinth_lev").value="4";
-        document.getElementById("cclear_height").value="8@10";
-        document.getElementById("dep_slab").value="1";
-        document.getElementById("rep_span_len").value="6@8";
-        document.getElementById("rep_span_wid").value="5@8";
-        document.getElementById("col_type").value="0";
-        document.getElementById("len_col").value="1";
-        document.getElementById("wid_col").value="1";
-        document.getElementById("radius_col").value="1";
-        document.getElementById("dep_beam").value="1";
-        document.getElementById("wid_beam").value="1";
-    }
-</script>
-<script type="text/javascript" >
-$(document).ready(function(){
-  $('[data-toggle="tooltip"]').tooltip();
-});
-</script>
 <nav role="navigation" class="navbar">
   <!-- Brand and toggle get grouped for better mobile display -->
   <div class="navbar-header">
@@ -66,88 +38,67 @@ $(document).ready(function(){
   </div>
 </nav>
 
-<h1>Enter the specification of the building</h1>
-<center>
+<h1>Enter the specification of the building</h1><br /><br />
 <form action="{% url 'specs' %}" method="POST" id="form" >
   <fieldset id="field" class="form-group" >
     {% csrf_token %}
-            <div>
+    <div class="row">
+      <div class="col-md-4" id="cols" >
             <label>Stories</label><a href="#" class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="information" ></a>
             <input type="number" name="stories" id="stories" class="form-control" ><br />
-            </div>
+
             <label>Depth of foudation</label><a href="#" class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="information" ></a>
             <input type="number" name="dep_of_foun" step="any" min="0" max="100" id="dep_of_foun" class="form-control"><br />
 
-            <label>Plinth level</label><a class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="information" ></a>
+            <label>Plinth level</label><a href="#" class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="information" ></a>
             <input type="number" name="plinth_lev" step="any" min="0" max="100" id="plinth_lev" class="form-control"><br />
 
-            <label>Clear height</label><a class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="information" ></a>
+            <label>Clear height</label><a href="#" class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="information" ></a>
             <input type="text" name="cclear_height" id="cclear_height" class="form-control"><br />
-
-            <label>Depth of slab</label><a class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="information" ></a>
+      </div>
+      <div class="col-md-4" id="cols" >
+            <label>Depth of slab</label><a href="#" class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="information" ></a>
             <input type="number" name="dep_slab" step="any" min="0" max="100" id="dep_slab" class="form-control"><br />
 
-            <label>Representation of span length</label><a class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="information" ></a>
+            <label>Representation of span length</label><a href="#" class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="information" ></a>
             <input type="text" name="rep_span_len" id="rep_span_len" class="form-control"><br />
 
-            <label>Representation of span width</label><a class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="information" ></a>
+            <label>Representation of span width</label><a href="#" class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="information" ></a>
             <input type="text" name="rep_span_wid" id="rep_span_wid" class="form-control"><br />
 
-            <label>Column type</label><a class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="information" ></a>
-            <input type="number" name="col_type" id="col_type" class="form-control"><br />
+            <label>Depth of beam</label><a href="#" class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="information" ></a>
+            <input type="number" name="dep_beam" step="any" min="0" max="100"  id="dep_beam" class="form-control"><br />
+      </div>
+      <div class="col-md-4" id="cols" >
+            <label>Width of beam</label><a href="#" class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="information" ></a>
+            <input type="number" name="wid_beam" step="any" min="0" max="100" id="wid_beam" class="form-control"><br />
 
+            <label>Column type</label><a href="#" class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="information" ></a>
 
-
-<!--        <tr>
-            <td>Column type</td>
-            <td><select name="col_type" id="col_type">
-                    <option value="0"> Cylinder </option>
-                    <option value="1"> Rectangle </option>
-                </select>
-        </tr>
--->
-<!--        <tr value="1" id="col_type_1" class="col_type_options" >
-            <td> Length</td>
-            <td> <input type="number" name="len_col" > </td>
-            <td> Width </td>
-            <td> <input type="number" name="wid_col" > </td>
-        </tr>-->
+            <select name="col_type" id="col_type" class="form-control" onchange="showThem(this);" >
+              <option value="3" > Select -- </option>
+              <option value="0" > Circle </option>
+              <option value="1" > Rectangle </option>
+            </select><br />
 
         <div value="1" id="col_type_1" class="col_type_options" >
-            <label>Length</label><a class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="information" ></a>
+            <label>Length</label><a href="#" class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="information" ></a>
             <input type="number" name="len_col" step="any" min="0" max="100" id="len_col" class="form-control"><br />
         </div>
-
-            <label>Width</label><a class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="information" ></a>
+        <div id="col_type_1_2" >
+            <label>Width</label><a href="#" class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="information" ></a>
             <input type="number" name="wid_col" step="any" min="0" max="100" id="wid_col" class="form-control"><br />
-
+        </div>
         <div value="0" id="col_type_0" class="col_type_options">
-            <label>Radius of column</label><a class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="information" ></a>
+            <label>Radius of column</label><a href="#" class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="information" ></a>
             <input type="number" name="radius_col" step="any" min="0" max="100" id="radius_col" class="form-control"> <br />
         </div>
-            <label>Depth of beam</label><a class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="information" ></a>
-            <input type="number" name="dep_beam" step="any" min="0" max="100"  id="dep_beam" class="form-control"><br />
-            <label>Width of beam</label><a class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="information" ></a>
-            <input type="number" name="wid_beam" step="any" min="0" max="100" id="wid_beam" class="form-control"><br />
+     </div>
+    </div>
             <a href="#"  id="autofill" onclick="autofill()">Autofill values</a>
             <input type="submit" value="submit" id="submit"><br />
 
   </fieldset>
 </form>
-</center>
 </body>
 </html>
-<!--
-<script type="text/javascript" src=" https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
-
-<script>
-
-$(document).ready(function(){
-
-    $('#col_type').on('change', function() {
-      $('tr.col_type_options').hide();
-        $('#col_type_' + $(this).val() ).show();
-    });
-
-});
-</script>-->
