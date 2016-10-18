@@ -2,4 +2,14 @@
 *~
 *.fcstd1
 *.old
-*.sqlite3
+
+# Database
+db.sqlite3
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Django stuff:
+*.log
+*.pot
