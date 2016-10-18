@@ -1,0 +1,44 @@
+h1{
+  text-align: center;
+}
+
+.navbar{
+  background-color: #ff0000;
+}
+
+#brand{
+  color: white;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  font-size: 150%;
+}
+
+#links a{
+  color:#fdeaf0;
+  font-size: 120%;
+  text-decoration: bold;
+}
+
+#links a:hover{
+  background-color: black;
+}
+#form{
+  display: block;
+}
+
+#field{
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+label{
+  margin-right: 10px;
+  font-size: 120%;
+}
+
+a:hover{
+  text-decoration: none;
+}
+
+.form-control{
+  width: 350px;
+}

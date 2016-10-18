@@ -2,3 +2,4 @@
 *~
 *.fcstd1
 *.old
+*.sqlite3
