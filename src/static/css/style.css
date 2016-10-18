@@ -6,6 +6,10 @@ h1{
   background-color: #ff0000;
 }
 
+body{
+  background-color: #FDFBFB;
+}
+
 #brand{
   color: white;
   font-family: 'Alegreya Sans SC', sans-serif;
@@ -13,7 +17,7 @@ h1{
 }
 
 #links a{
-  color:#fdeaf0;
+  color:#F7F2F2;
   font-size: 120%;
   text-decoration: bold;
 }
@@ -34,6 +38,12 @@ label{
   margin-right: 10px;
   font-size: 120%;
 }
+
+a{
+  text-decoration: none;
+}
+
+
 
 a:hover{
   text-decoration: none;
