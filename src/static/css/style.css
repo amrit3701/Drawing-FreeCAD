@@ -6,6 +6,10 @@ h1{
   background-color: #ff0000;
 }
 
+body{
+  background-color: #FDFBFB;
+}
+
 #brand{
   color: white;
   font-family: 'Alegreya Sans SC', sans-serif;
@@ -13,7 +17,7 @@ h1{
 }
 
 #links a{
-  color:#fdeaf0;
+  color:#F7F2F2;
   font-size: 120%;
   text-decoration: bold;
 }
@@ -35,10 +39,45 @@ label{
   font-size: 120%;
 }
 
+a{
+  text-decoration: none;
+}
+
 a:hover{
   text-decoration: none;
 }
 
 .form-control{
   width: 350px;
+}
+
+#autofill{
+  display: block;
+/*  width: 172px;
+  height: auto;*/
+  text-decoration: none;
+  color: #FDFBFB;
+
+}
+
+#autofill:hover{
+  color: #ff0000;
+}
+
+.btns{
+  width: 172px;
+  height: 35px;
+  background-color: #ff0000;
+  border: 1px solid #ff0000;
+  color: #FDFBFB;
+  text-align: center;
+  border-radius: 3px;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+
+}
+
+.btns:hover{
+  background-color: #FDFBFB;
+  color: #ff0000;
 }
